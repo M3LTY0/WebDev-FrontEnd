@@ -5,12 +5,13 @@ import { useState } from "react";
 interface StudentCardProps {
   name: string;
   grade: number;
+  average: number;
   onRemove: () => void;
 }
 
-const StudentCard = ({ name, grade, onRemove }: StudentCardProps) => {
+const StudentCard = ({ name, grade, average, onRemove }: StudentCardProps) => {
   const [show, setShow] = useState(false);
-  const flag = grade >= 80 ? "Honour Student" : "";
+  const flag = average >= 80 ? "Honour Student" : "";
 
   const handleShow = () => {
     setShow(!show);
@@ -19,6 +20,9 @@ const StudentCard = ({ name, grade, onRemove }: StudentCardProps) => {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <h1 className="text-center text-xl font-bold text-slate-900">{name}</h1>
+      <p className="text-sm text-slate-500 text-center">
+        Grade: <span className="font-semibold text-slate-700">{grade}</span>
+      </p>
 
       {show && (
         <div className="mt-4 space-y-2 text-center">
@@ -27,7 +31,8 @@ const StudentCard = ({ name, grade, onRemove }: StudentCardProps) => {
           )}
 
           <p className="text-sm text-slate-500">
-            Grade: <span className="font-semibold text-slate-700">{grade}</span>
+            Average:{" "}
+            <span className="font-semibold text-slate-700">{average}</span>
           </p>
         </div>
       )}

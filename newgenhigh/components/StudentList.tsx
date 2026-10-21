@@ -1,19 +1,25 @@
+// Completed by Jerry Folarin-Lewu(Wed 21)
+// Renders student "objects"
 "use client";
 
 import StudentCard from "@/components/StudentCard";
 import { StartStudent } from "@/data/StartStudent";
 import React, { useState } from "react";
 
+// defines the shape of the data
 interface Student {
   id: number;
   name: string;
+  average: number;
   grade: number;
 }
 
 const StudentList = () => {
+    // stores student info + query
   const [students, setStudents] = useState<Student[]>(StartStudent);
   const [query, setQuery] = useState("");
 
+  //matches queries to students
   const matching = students.filter((student) =>
     student.name.toLowerCase().includes(query.toLowerCase()),
   );
@@ -54,6 +60,7 @@ const StudentList = () => {
               <StudentCard
                 name={student.name}
                 grade={student.grade}
+                average={student.average}
                 onRemove={() => handleRemove(student.id)}
               />
             </li>
