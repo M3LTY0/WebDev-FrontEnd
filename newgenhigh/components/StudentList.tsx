@@ -3,10 +3,9 @@
 "use client";
 
 import StudentCard from "@/components/StudentCard";
-import { StartStudent } from "@/data/StartStudent";
-import React, { useState } from "react";
 
 // defines the shape of the data
+
 interface Student {
   id: number;
   name: string;
@@ -14,24 +13,12 @@ interface Student {
   grade: number;
 }
 
-const StudentList = () => {
-    // stores student info + query
-  const [students, setStudents] = useState<Student[]>(StartStudent);
-  const [query, setQuery] = useState("");
+interface StudentListProps {
+  students: Student[];
+  handleRemove: (id: number) => void;
+}
 
-  //matches queries to students
-  const matching = students.filter((student) =>
-    student.name.toLowerCase().includes(query.toLowerCase()),
-  );
-
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleRemove = (id: number) => {
-    setStudents(students.filter((student) => student.id !== id));
-  };
-
+const StudentList = ({ students, handleRemove }: StudentListProps) => {
   return (
     <div className="rounded-2xl bg-white p-6 shadow-md">
       {/* Header */}
@@ -42,20 +29,10 @@ const StudentList = () => {
         </p>
       </div>
 
-      <div className="mt-4">
-        <input
-          type="text"
-          value={query}
-          onChange={handleQueryChange}
-          placeholder="Search students..."
-          aria-label="Search students"
-          className="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none"
-        />
-      </div>
 
-      {matching.length > 0 ? (
+      {students.length > 0 ? (
         <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {matching.map((student) => (
+          {students.map((student) => (
             <li key={student.id}>
               <StudentCard
                 name={student.name}
