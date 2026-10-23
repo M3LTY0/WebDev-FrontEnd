@@ -4,8 +4,8 @@ import { useState } from "react";
 
 interface StudentCardProps {
   name: string;
-  grade: number;
   average: number;
+  grade: number;
   onRemove: () => void;
 }
 
