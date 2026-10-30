@@ -3,8 +3,6 @@
 
 import { Student } from "@/data/students";
 
-// props Interface
-
 interface StatsPanelProps {
   students: Student[];
 }

@@ -1,55 +1,30 @@
-// Completed by Jerry Folarin-Lewu(Wed 21)
-// Renders student "objects"
-"use client";
 
-import StudentCard from "@/components/StudentCard";
-
-// defines the shape of the data
-
-interface Student {
-  id: number;
-  name: string;
-  average: number;
-  grade: number;
-}
+import type { Student } from "@/data/students";
+import StudentCard from "./StudentCard";
 
 interface StudentListProps {
   students: Student[];
-  handleRemove: (id: number) => void;
+  onRemove: (id: number) => void;
 }
-
-const StudentList = ({ students, handleRemove }: StudentListProps) => {
+const StudentList = ({ students, onRemove }: StudentListProps) => {
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-md">
-      {/* Header */}
-      <div className="mb-5">
-        <h1 className="text-2xl font-bold text-slate-900">Student Directory</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          View and manage your students.
-        </p>
-      </div>
-
-
+    <div className="mt-4">
       {students.length > 0 ? (
-        <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {students.map((student) => (
-            <li key={student.id}>
-              <StudentCard
-                name={student.name}
-                grade={student.grade}
-                average={student.average}
-                onRemove={() => handleRemove(student.id)}
-              />
-            </li>
+            <StudentCard
+              key={student.id}
+              name={`${student.firstName} ${student.lastName}`}
+              grade={student.grade}
+              average={student.average}
+              onRemove={() => onRemove(student.id)}
+            />
           ))}
-        </ul>
-      ) : (
-        <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 px-4 py-8 text-center">
-          <p className="font-semibold text-slate-700">No students found</p>
-          <p className="mt-1 text-sm text-slate-500">
-            Try another name or search term.
-          </p>
         </div>
+      ) : (
+        <p className="py-6 text-center text-slate-500">
+          No students found.
+        </p>
       )}
     </div>
   );

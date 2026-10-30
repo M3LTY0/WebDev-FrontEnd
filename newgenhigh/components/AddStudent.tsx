@@ -45,15 +45,45 @@ export default function AddStudent({ onAdd}: AddStudentProps) {
 
     return (
         //with id addStudent so it goes to that part from navbar
-        <section id="addStudent" className="mt-100 p-6 bg-slate-900 rounded shadow">
-            <h2 className="text-xl font-semibold mb-4">Add a Student</h2>
-
+        <section
+            id="addStudent"
+            className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-slate-900">
+                Add a Student
+            </h2>
             <div className="flex flex-col gap-3">
                 {/*first name input*/}
                 <input type="text" placeholder="First Name" className="border p-2 rounded" value = {firstName} onChange={(x) => setFirstName(x.target.value)} />
                 <input type="text" placeholder="Last Name" className="border p-2 rounded" value = {lastName} onChange={(x) => setLastName(x.target.value)} />
-                <input type="numebr" className="border p-2 rounded" value = {grade} onChange={(x) => setGrade(Number(x.target.value))} />
-                <input type="number" className="border p-2 rounded" value = {average} onChange={(x) => setAverage(Number(x.target.value))} />
+                
+                
+                {/* to ensure "grade" cannot be below 9, or above 12, and must be a whole number (no negative integers)*/}
+                <input
+                    type="number"
+                    min="9"
+                    max="12"
+                    step="1"
+                    className="border p-2 rounded"
+                    value={grade}
+                    onChange={(x) => {
+                    const value = Number(x.target.value);
+
+                        if (Number.isInteger(value) && value >= 9 && value <= 12) {
+                            setGrade(value);}}}/>
+
+{/* to ensure the average stays between 0 and 100 */}
+                <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    className="border p-2 rounded"
+                    value={average}
+                    onChange={(x) => {
+                        const value = Number(x.target.value);
+
+                            if (Number.isInteger(value) && value >= 0 && value <= 100) {
+                                setAverage(value);}}}/>
 
                 <button onClick={handleAdd} className= "bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Add Student

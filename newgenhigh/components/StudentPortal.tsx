@@ -4,15 +4,13 @@
 
 import { useRef, useState } from "react";
 
-import {
-  Student,
-  initialStudents,
-} from "@/data/students";
+import { initialStudents } from "@/data/students";
+import type { Student } from "@/data/students";
 
 import StatsPanel from "@/components/StatsPanel";
-// import SearchBox from "@/components/SearchBox"; <-- MAKE SURE TO UNCOMMENT THIS AFTER ADDSTUDENT IS DONE BTW - Mathis
-// import StudentList from "@/components/StudentList"; <-- UNCOMMENT THIS WHEN DONE
-// import AddStudent from "@/components/AddStudent"; <-- UNCOMMENT THIS WHEN DONE
+import SearchBox from "@/components/SearchBox";
+import StudentList from "@/components/StudentList";
+import AddStudent from "@/components/AddStudent";
 
 // component
 
@@ -59,73 +57,64 @@ const StudentPortal = () => {
     setStudents([]);
   };
 
-  return (
-    <div className="space-y-10">
 
-      <section id="overview" className="scroll-mt-24 space-y-5">
+return (
+  <div className="space-y-10">
 
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900">
-            Student Portal
-          </h1>
+    {/* Overview Section */}
+    <section id="overview" className="scroll-mt-24 space-y-5">
+      <div>
+        <h1 className="text-3xl font-bold text-slate-900">
+          Student Portal
+        </h1>
 
-          <p className="mt-2 text-slate-500">
-            Welcome to New Generation High School.
-            Manage and view your students below.
-          </p>
-        </div>
+        <p className="mt-2 text-slate-500">
+          Welcome to New Generation High School.
+          Manage and view your students below.
+        </p>
+      </div>
 
-        <StatsPanel students={students} />
+      <StatsPanel students={students} />
+    </section>
 
-      </section>
-
-      <section id="students" className="scroll-mt-24 space-y-5">
-
-        <div className="flex flex-wrap items-center justify-between gap-3">
-
-          <h2 className="text-2xl font-bold text-slate-900">
-            Students
-          </h2>
-
-          <button
-            onClick={handleClearAll}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
-          >
-            Clear All
-          </button>
-
-        </div>
-
-        {/*
-        <SearchBox
-          query={query}
-          onQueryChange={handleSearchChange}
-        />
-
-        <StudentList
-          students={filteredStudents}
-          onRemove={handleRemove}
-        />
-
-        */}
-
-      </section>
-
-      {/*
-      <section id="addStudent" className="scroll-mt-24 space-y-5">
-
+    {/* Students Section */}
+    <section id="students" className="scroll-mt-24 space-y-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-2xl font-bold text-slate-900">
-          Add a Student
+          Students
         </h2>
 
-        <AddStudent onAdd={handleAdd} />
+        <button
+          onClick={handleClearAll}
+          className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+        >
+          Clear All
+        </button>
+      </div>
 
-      </section>
+<SearchBox
+  query={query}
+  onQueryChange={handleSearchChange}
+/>
 
-      */} 
+<StudentList
+  students={filteredStudents}
+  onRemove={handleRemove}
+/>
+    </section>
 
-    </div>
-  );
+    {/* Add Student Section */}
+    <section id="addStudent" className="scroll-mt-24 space-y-5">
+      <h2 className="text-2xl font-bold text-slate-900">
+        Add a Student
+      </h2>
+
+      <AddStudent onAdd={handleAdd} />
+    </section>
+
+  </div>
+);
+
 };
 
 // SECTION 10: Export
